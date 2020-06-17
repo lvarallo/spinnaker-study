@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: Luca-microservice
+        app: luca-microservice
         stack: frontend
         source: demo
-    name: Luca-microservice
+    name: luca-microservice
     namespace: microservices
 spec:
     replicas: 3
     selector:
         matchLabels:
-            run: Luca-microservice
+            run: luca-microservice
     template:
         metadata:
             labels:
-                app: Luca-microservice
-                run: Luca-microservice
+                app: luca-microservice
+                run: luca-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/Luca-microservice
-                    name: Luca-microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/luca-microservice
+                    name: luca-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,13 +31,13 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: Luca-microservice-service
-    name: Luca-microservice-service
+        app: luca-microservice-service
+    name: luca-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: Luca-microservice
+        app: luca-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -51,15 +51,15 @@ kind: Ingress
 metadata:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: Luca-ingress
+    name: luca-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /Luca(/|$)(.*)
+                    -   path: /luca(/|$)(.*)
                         backend:
-                            serviceName: Luca-microservice-service
+                            serviceName: luca-microservice-service
                             servicePort: 30201
 
 
